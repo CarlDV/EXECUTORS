@@ -1,218 +1,223 @@
-body {
-    font-family: 'Inter', sans-serif;
+
+:root {
+    --primary-bg: #000000;
+    --secondary-bg: #030303;
+    --tertiary-bg: #00008a;
+    --glass-bg: rgba(255, 255, 255, 0.05);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --card-bg: rgba(255, 255, 255, 0.08);
+    --card-border: rgba(255, 255, 255, 0.2);
+    --accent: #00ffa8;
+    --text-secondary: #00bdf7;
+  }
+  
+  * {
     margin: 0;
     padding: 0;
-    color: #fff;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Inter', sans-serif;
+    height: 100vh;
+    background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg), var(--tertiary-bg));
+    background-size: 400% 400%;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    overflow: hidden;
-    position: relative;
-    background: radial-gradient(circle, #1a1a1a, #0a0a0a);
-}
-
-.particles {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-}
-
-.background {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(circle, rgba(255, 255, 255, 0.05), transparent);
-    z-index: -1;
-    animation: pulse 10s infinite alternate;
-}
-
-@keyframes pulse {
+    color: #2d00f7;
+    overflow-y: auto;
+    animation: backgroundAnimation 20s ease infinite;
+  }
+  
+  @keyframes backgroundAnimation {
     0% {
-        transform: scale(1);
-        opacity: 0.5;
-    }
-    100% {
-        transform: scale(1.2);
-        opacity: 1;
-    }
-}
-
-.container {
-    width: 90%;
-    max-width: 1200px;
-    padding: 40px;
-    margin: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(20px);
-    border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-    animation: float 6s infinite ease-in-out;
-    perspective: 1000px;
-}
-
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
+      background-position: 0% 50%;
     }
     50% {
-        transform: translateY(-20px);
-    }
-}
-
-h1 {
-    text-align: center;
-    font-size: 4rem;
-    margin-bottom: 50px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -1px;
-    text-shadow: 0 0 10px rgba(0, 123, 255, 0.8), 0 0 20px rgba(0, 123, 255, 0.6);
-    animation: glow 2s infinite alternate;
-}
-
-@keyframes glow {
-    0% {
-        text-shadow: 0 0 10px rgba(0, 123, 255, 0.8), 0 0 20px rgba(0, 123, 255, 0.6);
+      background-position: 100% 50%;
     }
     100% {
-        text-shadow: 0 0 20px rgba(0, 123, 255, 1), 0 0 40px rgba(0, 123, 255, 0.8);
+      background-position: 0% 50%;
     }
-}
-
-.neon-text {
-    color: #00ffcc;
-    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc, 0 0 40px #00ffcc;
-}
-
-.file-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-}
-
-.file-item {
-    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .container {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
     border-radius: 20px;
+    backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    padding: 40px;
+    max-width: 1200px;
+    width: 90%;
+    margin: 20px;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+    opacity: 0;
+    animation: fadeIn 1s forwards;
+    animation-delay: 0.3s;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  }
+  
+  .file-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  
+  .file-item {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 15px;
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    position: relative;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    animation: card-float 4s infinite ease-in-out;
-    transform-style: preserve-3d;
-}
-
-@keyframes card-float {
-    0%, 100% {
-        transform: translateY(0) rotateX(0) rotateY(0);
+    transition: transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.8s forwards;
+  }
+  
+  .file-item:nth-child(1) {
+    animation-delay: 0.5s;
+  }
+  .file-item:nth-child(2) {
+    animation-delay: 0.7s;
+  }
+  .file-item:nth-child(3) {
+    animation-delay: 0.9s;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
     }
-    50% {
-        transform: translateY(-10px) rotateX(5deg) rotateY(5deg);
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
-}
-
-.file-item:hover {
-    transform: scale(1.05) rotateX(10deg) rotateY(10deg);
-    box-shadow: 0 20px 50px rgba(0, 123, 255, 0.5);
-}
-
-.file-image {
+  }
+  
+  .file-item:hover {
+    transform: scale(1.03);
+  }
+  
+  .file-image {
     position: relative;
     width: 100%;
-    height: 250px;
+    height: 200px;
     overflow: hidden;
-    transform-style: preserve-3d;
-}
-
-.file-image img {
+  }
+  
+  .file-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.file-item:hover .file-image img {
-    transform: scale(1.2) rotateX(5deg) rotateY(5deg);
-}
-
-.image-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.7);
+    transition: transform 0.3s ease, filter 0.3s ease;
+    filter: blur(2px);
+  }
+  
+  .file-item:hover .file-image img {
+    filter: blur(0);
+    transform: scale(1.05);
+  }
+  
+  .file-details {
     padding: 20px;
-    border-radius: 15px;
-    width: 80%;
-    backdrop-filter: blur(5px);
-    box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
-}
-
-.file-name {
-    font-size: 2rem;
+  }
+  
+  .file-name {
+    font-size: 1.5rem;
     margin-bottom: 10px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    color: #00ffcc;
-    text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc;
-}
-
-.file-description {
-    font-size: 1rem;
-    margin-bottom: 0;
-    color: #e0e0e0;
-    line-height: 1.5;
-}
-
-.download-button {
-    display: block;
-    text-align: center;
-    padding: 15px;
-    background: linear-gradient(135deg, #007BFF, #00ffcc);
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.1rem;
     font-weight: 600;
-    border-radius: 15px;
-    margin: 20px;
-    transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
-}
-
-.download-button:hover {
-    background: linear-gradient(135deg, #00ffcc, #007BFF);
-    transform: translateY(-5px) scale(1.1);
-    box-shadow: 0 0 40px rgba(0, 123, 255, 0.8);
-}
-
-@media (max-width: 768px) {
+    color: var(--accent);
+  }
+  
+  .file-description {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    margin-bottom: 15px;
+  }
+  
+  .download-button {
+    display: inline-block;
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid var(--glass-border);
+    border-radius: 10px;
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    transition: background 0.3s ease, transform 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .download-button:hover {
+    background: rgba(0, 0, 0, 0.6);
+    transform: scale(1.05);
+  }
+  
+  .download-button:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 255, 168, 0.5);
+  }
+  
+  .download-button::after {
+    content: "";
+    position: absolute;
+    background: var(--accent);
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: -100%;
+    transition: left 0.5s;
+    opacity: 0.1;
+  }
+  
+  .download-button:hover::after {
+    left: 0;
+  }
+  
+  @media (max-width: 768px) {
     h1 {
-        font-size: 2.5rem;
+      font-size: 2rem;
+      margin-bottom: 20px;
     }
-
-    .file-list {
-        grid-template-columns: 1fr;
+    .container {
+      padding: 20px;
+      margin: 10px;
     }
-
+    .file-details {
+      padding: 15px;
+    }
     .file-name {
-        font-size: 1.5rem;
+      font-size: 1.3rem;
     }
-
     .file-description {
-        font-size: 0.9rem;
+      font-size: 0.9rem;
     }
-
     .download-button {
-        padding: 12px;
-        font-size: 1rem;
+      padding: 10px 16px;
     }
-}
+  }
