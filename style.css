@@ -1,221 +1,402 @@
-
 :root {
-    --primary-bg: #000000;
-    --secondary-bg: #030303;
-    --tertiary-bg: #00008a;
-    --glass-bg: rgba(255, 255, 255, 0.05);
-    --glass-border: rgba(255, 255, 255, 0.2);
-    --card-bg: rgba(255, 255, 255, 0.08);
-    --card-border: rgba(255, 255, 255, 0.2);
-    --accent: #00ffa8;
-    --text-secondary: #00bdf7;
+  --primary-bg: #000000;
+  --secondary-bg: #030303;
+  --tertiary-bg: #00008a;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.2);
+  --card-bg: rgba(255, 255, 255, 0.08);
+  --card-border: rgba(255, 255, 255, 0.2);
+  --accent: #00ffa8;
+  --text-secondary: #00bdf7;
+  --glow: 0 0 15px rgba(0, 255, 168, 0.6);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg), var(--tertiary-bg));
+  background-size: 400% 400%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  overflow-y: auto;
+  animation: backgroundAnimation 20s ease infinite;
+  padding: 20px 0;
+}
+
+@keyframes backgroundAnimation {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  50% {
+    background-position: 100% 50%;
   }
-  
-  body {
-    font-family: 'Inter', sans-serif;
-    height: 100vh;
-    background: linear-gradient(135deg, var(--primary-bg), var(--secondary-bg), var(--tertiary-bg));
-    background-size: 400% 400%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #2d00f7;
-    overflow-y: auto;
-    animation: backgroundAnimation 20s ease infinite;
+  100% {
+    background-position: 0% 50%;
   }
-  
-  @keyframes backgroundAnimation {
-    0% {
-      background-position: 0% 50%;
-    }
-    50% {
-      background-position: 100% 50%;
-    }
-    100% {
-      background-position: 0% 50%;
-    }
+}
+
+.container {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  padding: 40px;
+  max-width: 1200px;
+  width: 90%;
+  margin: 20px;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  position: relative;
+  overflow: hidden;
+}
+
+.container::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(0, 255, 168, 0.1) 0%, transparent 70%);
+  opacity: 0.5;
+  animation: pulse 8s infinite ease-in-out;
+  z-index: -1;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    opacity: 0.3;
   }
-  
-  .container {
-    background: var(--glass-bg);
-    border: 1px solid var(--glass-border);
-    border-radius: 20px;
-    backdrop-filter: blur(20px);
-    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
-    padding: 40px;
-    max-width: 1200px;
-    width: 90%;
-    margin: 20px;
-    opacity: 0;
-    animation: fadeIn 1s forwards;
+  50% {
+    transform: scale(1);
+    opacity: 0.5;
   }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  100% {
+    transform: scale(0.8);
+    opacity: 0.3;
   }
-  
-  h1 {
-    text-align: center;
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 30px;
-    letter-spacing: 1px;
-    opacity: 0;
-    animation: fadeIn 1s forwards;
-    animation-delay: 0.3s;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-  }
-  
-  .file-list {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-  }
-  
-  .file-item {
-    background: var(--card-bg);
-    border: 1px solid var(--card-border);
-    border-radius: 15px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from {
     opacity: 0;
     transform: translateY(20px);
-    animation: fadeInUp 0.8s forwards;
   }
-  
-  .file-item:nth-child(1) {
-    animation-delay: 0.5s;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  .file-item:nth-child(2) {
-    animation-delay: 0.7s;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 40px;
+  letter-spacing: 1px;
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  animation-delay: 0.3s;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(90deg, #fff, var(--accent), var(--text-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+}
+
+h1::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+}
+
+.subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: var(--text-secondary);
+  opacity: 0;
+  animation: fadeIn 1s forwards;
+  animation-delay: 0.5s;
+}
+
+.file-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.file-item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 15px;
+  overflow: hidden;
+  transition: all 0.4s ease;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s forwards;
+  position: relative;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.file-item:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(0, 191, 247, 0.3);
+  border-color: var(--accent);
+}
+
+.file-item:nth-child(1) {
+  animation-delay: 0.6s;
+}
+.file-item:nth-child(2) {
+  animation-delay: 0.8s;
+}
+.file-item:nth-child(3) {
+  animation-delay: 1s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  .file-item:nth-child(3) {
-    animation-delay: 0.9s;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
+}
+
+.file-image {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+
+.file-image::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+}
+
+.file-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease, filter 0.6s ease;
+}
+
+.file-item:hover .file-image img {
+  transform: scale(1.1);
+  filter: brightness(1.1) contrast(1.1);
+}
+
+.file-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--accent);
+  color: var(--primary-bg);
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  z-index: 1;
+  box-shadow: 0 0 10px rgba(0, 255, 168, 0.5);
+}
+
+.file-details {
+  padding: 25px;
+  position: relative;
+}
+
+.file-name {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  font-weight: 700;
+  color: var(--accent);
+  text-shadow: 0 0 5px rgba(0, 255, 168, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.version-tag {
+  display: inline-block;
+  background: rgba(0, 189, 247, 0.2);
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  padding: 3px 8px;
+  border-radius: 5px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.file-description {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 25px;
+}
+
+.file-features {
+  margin-bottom: 20px;
+}
+
+.feature-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+  color: white;
+}
+
+.feature-icon {
+  color: var(--accent);
+  font-size: 1rem;
+}
+
+.download-button {
+  display: inline-block;
+  padding: 14px 28px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  text-align: center;
+}
+
+.download-button:hover {
+  background: rgba(0, 0, 0, 0.6);
+  transform: translateY(-3px);
+  box-shadow: var(--glow);
+  border-color: var(--accent);
+}
+
+.download-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 168, 0.2),
+    transparent
+  );
+  transition: left 0.7s;
+}
+
+.download-button:hover::before {
+  left: 100%;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 50px;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+.discord-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 20px;
+  background: rgba(88, 101, 242, 0.3);
+  border: 1px solid rgba(88, 101, 242, 0.5);
+  border-radius: 10px;
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  margin-top: 10px;
+  transition: all 0.3s ease;
+}
+
+.discord-button:hover {
+  background: rgba(88, 101, 242, 0.4);
+  transform: translateY(-2px);
+}
+
+.ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 150px;
+  height: 150px;
+  overflow: hidden;
+}
+
+.ribbon-content {
+  position: absolute;
+  top: 30px;
+  right: -35px;
+  transform: rotate(45deg);
+  background: var(--accent);
+  color: black;
+  padding: 5px 40px;
+  font-weight: bold;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem;
+    margin-bottom: 30px;
   }
-  
-  .file-item:hover {
-    transform: scale(1.03);
+  .subtitle {
+    font-size: 1rem;
   }
-  
-  .file-image {
-    position: relative;
-    width: 100%;
-    height: 200px;
-    overflow: hidden;
+  .container {
+    padding: 25px;
+    margin: 10px;
   }
-  
-  .file-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.3s ease, filter 0.3s ease;
-  }
-  
-  .file-item:hover .file-image img {
-    transform: scale(1.05);
-  }
-  
   .file-details {
     padding: 20px;
   }
-  
   .file-name {
     font-size: 1.5rem;
-    margin-bottom: 10px;
-    font-weight: 600;
-    color: var(--accent);
   }
-  
   .file-description {
-    font-size: 1rem;
-    color: var(--text-secondary);
-    line-height: 1.4;
-    margin-bottom: 15px;
+    font-size: 0.9rem;
   }
-  
   .download-button {
-    display: inline-block;
     padding: 12px 20px;
-    background: rgba(0, 0, 0, 0.4);
-    border: 1px solid var(--glass-border);
-    border-radius: 10px;
-    color: var(--accent);
-    text-decoration: none;
-    font-weight: 600;
-    transition: background 0.3s ease, transform 0.3s ease;
-    position: relative;
-    overflow: hidden;
+    font-size: 1rem;
   }
-  
-  .download-button:hover {
-    background: rgba(0, 0, 0, 0.6);
-    transform: scale(1.05);
-  }
-  
-  .download-button:focus {
-    outline: none;
-    box-shadow: 0 0 0 3px rgba(0, 255, 168, 0.5);
-  }
-  
-  .download-button::after {
-    content: "";
-    position: absolute;
-    background: var(--accent);
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: -100%;
-    transition: left 0.5s;
-    opacity: 0.1;
-  }
-  
-  .download-button:hover::after {
-    left: 0;
-  }
-  
-  @media (max-width: 768px) {
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 20px;
-    }
-    .container {
-      padding: 20px;
-      margin: 10px;
-    }
-    .file-details {
-      padding: 15px;
-    }
-    .file-name {
-      font-size: 1.3rem;
-    }
-    .file-description {
-      font-size: 0.9rem;
-    }
-    .download-button {
-      padding: 10px 16px;
-    }
-  }
+}
